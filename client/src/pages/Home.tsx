@@ -403,6 +403,20 @@ export default function Home() {
           />
         </section>
 
+        {/* ===== CTA セクション（本の後・成功理由の前）===== */}
+        <section className="border-t border-neutral-200 py-4">
+          <CTASection
+            clinic="higashiHiroshima"
+            onLineClick={() => openModal(LINKS.higashiHiroshima.line, "東広島西条整骨院 LINE")}
+            onHotpepperClick={() => openModal(LINKS.higashiHiroshima.hotpepper, "東広島西条整骨院 HOT PEPPER予約")}
+          />
+          <CTASection
+            clinic="fukuyama"
+            onLineClick={() => openModal(LINKS.fukuyama.line, "福山整骨院 LINE")}
+            onHotpepperClick={() => openModal(LINKS.fukuyama.hotpepper, "福山整骨院 HOT PEPPER予約")}
+          />
+        </section>
+
         {/* ===== 当店のダイエットが成功する理由 ===== */}
         <section className="border-t border-neutral-200 px-4 py-8">
           <h2 className="text-[#f39f88] text-2xl font-semibold mb-6">当店のダイエットが成功する理由</h2>
