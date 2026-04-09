@@ -377,18 +377,20 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===== CTA セクション 2 ===== */}
-        <section className="border-t border-neutral-200 py-4">
-          <CTASection
-            clinic="higashiHiroshima"
-            onLineClick={() => openModal(LINKS.higashiHiroshima.line, "東広島西条整骨院 LINE")}
-            onHotpepperClick={() => openModal(LINKS.higashiHiroshima.hotpepper, "東広島西条整骨院 HOT PEPPER予約")}
-          />
-          <CTASection
-            clinic="fukuyama"
-            onLineClick={() => openModal(LINKS.fukuyama.line, "福山整骨院 LINE")}
-            onHotpepperClick={() => openModal(LINKS.fukuyama.hotpepper, "福山整骨院 HOT PEPPER予約")}
-          />
+        {/* ===== 店舗情報：福山整骨院 ===== */}
+        <section className="border-t border-neutral-200 px-4 py-8">
+          <h2 className="text-[#f39f88] text-2xl font-semibold mb-4">店舗情報：福山整骨院</h2>
+          <img src="/109-63.webp" alt="福山整骨院 外観" className="w-full h-auto rounded mb-4" />
+          <div className="space-y-2 mb-6">
+            <InfoItem icon="fas fa-clock" text="営業時間：月～金 8：30～12：30・15：00～19：30　土 8：30～17：30" />
+            <InfoItem icon="fas fa-calendar-times" text="定休日：日曜・祝日" />
+            <InfoItem icon="fas fa-map-marker-alt" text="住所：広島県福山市新涯町３丁目１０－２１" />
+            <InfoItem icon="fas fa-credit-card" text="現金・クレジットカード・PayPay・その他QR決済" />
+          </div>
+          {/* Google マップ（福山整骨院）*/}
+          <div className="w-full rounded overflow-hidden mb-4">
+            <FukuyamaMap />
+          </div>
         </section>
 
         {/* ===== BOOK特典 ===== */}
@@ -435,7 +437,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mb-6">
+          <div className="border-2 border-neutral-200 rounded p-4 mb-6">
             <h3 className="text-[#f39f88] text-xl font-semibold mb-4">理由4：国家資格の柔道整復師を所有。だから安心！</h3>
             <div className="flex justify-center mb-4">
               <img
@@ -449,48 +451,19 @@ export default function Home() {
               安心してダイエットを任せることができます。
             </p>
           </div>
-
-          <div className="flex justify-center mb-6">
-            <img
-              src="/16-267.webp"
-              alt="特典"
-              className="w-[280px] h-auto"
-              style={{ transform: "rotate(3deg)" }}
-            />
-          </div>
         </section>
 
-        {/* ===== CTA セクション 3 ===== */}
-        <section className="border-t border-neutral-200 py-4">
-          <CTASection
-            clinic="higashiHiroshima"
-            onLineClick={() => openModal(LINKS.higashiHiroshima.line, "東広島西条整骨院 LINE")}
-            onHotpepperClick={() => openModal(LINKS.higashiHiroshima.hotpepper, "東広島西条整骨院 HOT PEPPER予約")}
-          />
-          <CTASection
-            clinic="fukuyama"
-            onLineClick={() => openModal(LINKS.fukuyama.line, "福山整骨院 LINE")}
-            onHotpepperClick={() => openModal(LINKS.fukuyama.hotpepper, "福山整骨院 HOT PEPPER予約")}
+        {/* ===== BOOK特典（成功理由の後）===== */}
+        <section className="border-t border-neutral-200 px-4 py-8 flex justify-center">
+          <img
+            src="/16-267.webp"
+            alt="特典本"
+            className="w-[280px] h-auto"
+            style={{ transform: "rotate(3deg)" }}
           />
         </section>
 
-        {/* ===== 店舗情報：福山整骨院 ===== */}
-        <section className="border-t border-neutral-200 px-4 py-8">
-          <h2 className="text-[#f39f88] text-2xl font-semibold mb-4">店舗情報：福山整骨院</h2>
-          <img src="/109-63.webp" alt="福山整骨院 外観" className="w-full h-auto rounded mb-4" />
-          <div className="space-y-2 mb-6">
-            <InfoItem icon="fas fa-clock" text="営業時間：月～金 8：30～12：30・15：00～19：30　土 8：30～17：30" />
-            <InfoItem icon="fas fa-calendar-times" text="定休日：日曜・祝日" />
-            <InfoItem icon="fas fa-map-marker-alt" text="住所：広島県福山市新涯町３丁目１０－２１" />
-            <InfoItem icon="fas fa-credit-card" text="現金・クレジットカード・PayPay・その他QR決済" />
-          </div>
-          {/* Google マップ（福山整骨院）*/}
-          <div className="w-full rounded overflow-hidden mb-4">
-            <FukuyamaMap />
-          </div>
-        </section>
-
-        {/* ===== CTA セクション 4（最終） ===== */}
+        {/* ===== CTA セクション（最終） ===== */}
         <section className="border-t border-neutral-200 py-4 mb-8">
           <CTASection
             clinic="higashiHiroshima"
