@@ -1,0 +1,45 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check bundled images
+        continue-on-error: true
+        run: node scripts/check-images.mjs
+
+      - name: Build
+        run: VITE_BASE_PATH=/sanbonya-diet-lp/ pnpm run build:pages
+        env:
+          VITE_BASE_PATH: /sanbonya-diet-lp/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/public
+          force_orphan: true
