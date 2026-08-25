@@ -1,5 +1,4 @@
-import { useState, useRef } from "react";
-import { MapView } from "@/components/Map";
+import { useState } from "react";
 
 // =============================================================
 // Design Philosophy: Figma忠実再現 - モバイルファーストLP
@@ -116,68 +115,19 @@ function InfoItem({ icon, text }: { icon: string; text: string }) {
   );
 }
 
-// Googleマップコンポーネント（東広島西条整骨院）
-function HigashiHiroshimaMap() {
-  const mapRef = useRef<google.maps.Map | null>(null);
-
-  const handleMapReady = (map: google.maps.Map) => {
-    mapRef.current = map;
-    const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode(
-      { address: "広島県東広島市西条西本町28-30 ハローズ東広島2階" },
-      (results, status) => {
-        if (status === "OK" && results && results[0]) {
-          map.setCenter(results[0].geometry.location);
-          map.setZoom(16);
-          new window.google.maps.marker.AdvancedMarkerElement({
-            map,
-            position: results[0].geometry.location,
-            title: "東広島西条整骨院",
-          });
-        }
-      }
-    );
-  };
-
+// 店舗の地図（APIキー不要のGoogleマップ埋め込み）
+// もとは Manus のプロキシ経由で Google Maps JavaScript API を読み込んでいたため、
+// GitHub Pages ではプロキシもAPIキーも無く地図が表示されなかった。
+function ShopMap({ query, title }: { query: string; title: string }) {
   return (
-    <MapView
+    <iframe
+      src={`https://maps.google.com/maps?q=${encodeURIComponent(query)}&output=embed&z=16`}
+      title={title}
       className="w-full h-[400px]"
-      initialCenter={{ lat: 34.4261, lng: 132.7311 }}
-      initialZoom={16}
-      onMapReady={handleMapReady}
-    />
-  );
-}
-
-// Googleマップコンポーネント（福山整骨院）
-function FukuyamaMap() {
-  const mapRef = useRef<google.maps.Map | null>(null);
-
-  const handleMapReady = (map: google.maps.Map) => {
-    mapRef.current = map;
-    const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode(
-      { address: "広島県福山市新涯町3丁目10-21" },
-      (results, status) => {
-        if (status === "OK" && results && results[0]) {
-          map.setCenter(results[0].geometry.location);
-          map.setZoom(16);
-          new window.google.maps.marker.AdvancedMarkerElement({
-            map,
-            position: results[0].geometry.location,
-            title: "福山整骨院",
-          });
-        }
-      }
-    );
-  };
-
-  return (
-    <MapView
-      className="w-full h-[400px]"
-      initialCenter={{ lat: 34.4850, lng: 133.3580 }}
-      initialZoom={16}
-      onMapReady={handleMapReady}
+      style={{ border: 0 }}
+      allowFullScreen
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
     />
   );
 }
@@ -288,13 +238,13 @@ export default function Home() {
               <img src={`${import.meta.env.BASE_URL}91-2.webp`} alt="口コミ6" className="w-full h-full object-cover" />
             </div>
             <div className="overflow-hidden aspect-square">
-              <img src={`${import.meta.env.BASE_URL}16-53.webp`} alt="口コミ7" className="w-full h-full object-cover" />
+              <img src={`${import.meta.env.BASE_URL}109-5.webp`} alt="口コミ7" className="w-full h-full object-cover" />
             </div>
             <div className="overflow-hidden aspect-square">
               <img src={`${import.meta.env.BASE_URL}91-5.webp`} alt="口コミ8" className="w-full h-full object-cover" />
             </div>
             <div className="overflow-hidden aspect-square">
-              <img src={`${import.meta.env.BASE_URL}91-10.webp`} alt="口コミ9" className="w-full h-full object-cover" />
+              <img src={`${import.meta.env.BASE_URL}109-4.webp`} alt="口コミ9" className="w-full h-full object-cover" />
             </div>
             <div className="overflow-hidden aspect-square">
               <img src={`${import.meta.env.BASE_URL}91-4.webp`} alt="口コミ10" className="w-full h-full object-cover" />
@@ -303,7 +253,7 @@ export default function Home() {
               <img src={`${import.meta.env.BASE_URL}109-2.webp`} alt="口コミ11" className="w-full h-full object-cover" />
             </div>
             <div className="overflow-hidden aspect-square">
-              <img src={`${import.meta.env.BASE_URL}91-13.webp`} alt="口コミ12" className="w-full h-full object-cover" />
+              <img src={`${import.meta.env.BASE_URL}109-3.webp`} alt="口コミ12" className="w-full h-full object-cover" />
             </div>
           </div>
         </section>
@@ -373,7 +323,7 @@ export default function Home() {
           </div>
           {/* Google マップ（東広島西条整骨院）*/}
           <div className="w-full rounded overflow-hidden mb-4">
-            <HigashiHiroshimaMap />
+            <ShopMap query="東広島西条整骨院 広島県東広島市西条西本町28-30" title="東広島西条整骨院 地図" />
           </div>
         </section>
 
@@ -389,7 +339,7 @@ export default function Home() {
           </div>
           {/* Google マップ（福山整骨院）*/}
           <div className="w-full rounded overflow-hidden mb-4">
-            <FukuyamaMap />
+            <ShopMap query="福山整骨院 広島県福山市新涯町3丁目10-21" title="福山整骨院 地図" />
           </div>
         </section>
 
