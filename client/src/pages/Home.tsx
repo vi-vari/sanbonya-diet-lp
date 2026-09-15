@@ -18,7 +18,9 @@ const LINKS = {
   },
   fukuyama: {
     line: "https://lin.ee/v69a7S4",
-    hotpepper: "https://beauty.hotpepper.jp/kr/slnH000700971/",
+    // クーポン付き予約ページ（初回限定クーポン）
+    hotpepper:
+      "https://beauty.hotpepper.jp/CSP/kr/reserve/?storeId=H000700971&couponId=CP00000012181966&add=0&rootCd=10",
   },
 };
 
@@ -141,10 +143,13 @@ export default function Home() {
     setModal({ url, title });
   };
   const closeModal = () => setModal(null);
-  // 西条院のHOT PEPPERはクーポン付き予約ページへ直接遷移させる
+  // HOT PEPPERはクーポン付き予約ページへ直接遷移させる
   // （予約フローはiframe内では動作しないため新規タブで開く）
   const openHigashiHotpepper = () => {
     window.open(LINKS.higashiHiroshima.hotpepper, "_blank", "noopener,noreferrer");
+  };
+  const openFukuyamaHotpepper = () => {
+    window.open(LINKS.fukuyama.hotpepper, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -176,7 +181,7 @@ export default function Home() {
           <CTASection
             clinic="fukuyama"
             onLineClick={() => openModal(LINKS.fukuyama.line, "福山整骨院 LINE")}
-            onHotpepperClick={() => openModal(LINKS.fukuyama.hotpepper, "福山整骨院 HOT PEPPER予約")}
+            onHotpepperClick={openFukuyamaHotpepper}
           />
         </section>
 
@@ -370,7 +375,7 @@ export default function Home() {
           <CTASection
             clinic="fukuyama"
             onLineClick={() => openModal(LINKS.fukuyama.line, "福山整骨院 LINE")}
-            onHotpepperClick={() => openModal(LINKS.fukuyama.hotpepper, "福山整骨院 HOT PEPPER予約")}
+            onHotpepperClick={openFukuyamaHotpepper}
           />
         </section>
 
@@ -444,7 +449,7 @@ export default function Home() {
           <CTASection
             clinic="fukuyama"
             onLineClick={() => openModal(LINKS.fukuyama.line, "福山整骨院 LINE")}
-            onHotpepperClick={() => openModal(LINKS.fukuyama.hotpepper, "福山整骨院 HOT PEPPER予約")}
+            onHotpepperClick={openFukuyamaHotpepper}
           />
         </section>
 
