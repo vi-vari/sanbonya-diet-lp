@@ -12,7 +12,9 @@ import { useState } from "react";
 const LINKS = {
   higashiHiroshima: {
     line: "https://lin.ee/Vzzy14K",
-    hotpepper: "https://beauty.hotpepper.jp/kr/slnH000792739/",
+    // クーポン付き予約ページ（初回限定クーポン）
+    hotpepper:
+      "https://beauty.hotpepper.jp/CSP/kr/reserve/?storeId=H000792739&couponId=CP00000012173556&add=0&rootCd=10",
   },
   fukuyama: {
     line: "https://lin.ee/v69a7S4",
@@ -139,6 +141,11 @@ export default function Home() {
     setModal({ url, title });
   };
   const closeModal = () => setModal(null);
+  // 西条院のHOT PEPPERはクーポン付き予約ページへ直接遷移させる
+  // （予約フローはiframe内では動作しないため新規タブで開く）
+  const openHigashiHotpepper = () => {
+    window.open(LINKS.higashiHiroshima.hotpepper, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <div className="bg-white min-h-screen font-['Noto_Sans_JP',_'Inter',_sans-serif]">
@@ -164,7 +171,7 @@ export default function Home() {
           <CTASection
             clinic="higashiHiroshima"
             onLineClick={() => openModal(LINKS.higashiHiroshima.line, "東広島西条整骨院 LINE")}
-            onHotpepperClick={() => openModal(LINKS.higashiHiroshima.hotpepper, "東広島西条整骨院 HOT PEPPER予約")}
+            onHotpepperClick={openHigashiHotpepper}
           />
           <CTASection
             clinic="fukuyama"
@@ -358,7 +365,7 @@ export default function Home() {
           <CTASection
             clinic="higashiHiroshima"
             onLineClick={() => openModal(LINKS.higashiHiroshima.line, "東広島西条整骨院 LINE")}
-            onHotpepperClick={() => openModal(LINKS.higashiHiroshima.hotpepper, "東広島西条整骨院 HOT PEPPER予約")}
+            onHotpepperClick={openHigashiHotpepper}
           />
           <CTASection
             clinic="fukuyama"
@@ -432,7 +439,7 @@ export default function Home() {
           <CTASection
             clinic="higashiHiroshima"
             onLineClick={() => openModal(LINKS.higashiHiroshima.line, "東広島西条整骨院 LINE")}
-            onHotpepperClick={() => openModal(LINKS.higashiHiroshima.hotpepper, "東広島西条整骨院 HOT PEPPER予約")}
+            onHotpepperClick={openHigashiHotpepper}
           />
           <CTASection
             clinic="fukuyama"
