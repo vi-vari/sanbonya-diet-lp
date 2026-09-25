@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // =============================================================
 // Design Philosophy: Figma忠実再現 - モバイルファーストLP
 // Colors: #f39f88 (accent/heading), #4dce6e (LINE green),
@@ -24,60 +22,13 @@ const LINKS = {
   },
 };
 
-// モーダルコンポーネント
-function IframeModal({
-  url,
-  title,
-  onClose,
-}: {
-  url: string;
-  title: string;
-  onClose: () => void;
-}) {
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
-      onClick={onClose}
-    >
-      <div
-        className="relative w-full max-w-2xl bg-white rounded-lg shadow-2xl overflow-hidden"
-        style={{ height: "85vh" }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-center justify-between px-4 py-3 bg-gray-100 border-b">
-          <span className="font-semibold text-gray-700 text-sm truncate">{title}</span>
-          <button
-            onClick={onClose}
-            className="ml-2 text-gray-500 hover:text-gray-800 text-2xl leading-none font-bold"
-            aria-label="閉じる"
-          >
-            &times;
-          </button>
-        </div>
-        <iframe
-          src={url}
-          title={title}
-          className="w-full"
-          style={{ height: "calc(85vh - 52px)", border: "none" }}
-          allow="fullscreen"
-        />
-      </div>
-    </div>
-  );
-}
-
 // CTAセクションコンポーネント
-function CTASection({
-  clinic,
-  onLineClick,
-  onHotpepperClick,
-}: {
-  clinic: "higashiHiroshima" | "fukuyama";
-  onLineClick: () => void;
-  onHotpepperClick: () => void;
-}) {
+// LINE・HOT PEPPERともに通常のリンク（<a href>）で直接遷移させる。
+// iframeモーダルや window.open はスマホ・アプリ内ブラウザでブロックされるため使わない。
+function CTASection({ clinic }: { clinic: "higashiHiroshima" | "fukuyama" }) {
   const isHigashi = clinic === "higashiHiroshima";
   const clinicName = isHigashi ? "東広島西条整骨院" : "福山整骨院";
+  const links = LINKS[clinic];
 
   return (
     <div className="py-6 px-4">
@@ -85,23 +36,27 @@ function CTASection({
         --- {clinicName} ---
       </div>
       <div className="flex flex-col items-center gap-2">
-        <button
-          onClick={onLineClick}
-          className="w-full max-w-xs flex items-center justify-center gap-2 bg-[#4dce6e] hover:bg-[#3ab85a] active:bg-[#2ea04c] text-white text-lg font-semibold py-3 px-6 rounded transition-colors"
+        <a
+          href={links.line}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full max-w-xs flex items-center justify-center gap-2 bg-[#4dce6e] hover:bg-[#3ab85a] active:bg-[#2ea04c] text-white text-lg font-semibold py-3 px-6 rounded transition-colors no-underline"
         >
           <i className="fab fa-line text-xl"></i>
           LINE講座をスタート
-        </button>
+        </a>
         <div className="text-[#3a3a3a] text-xs">
           1週間で痩せ体質を作る無料講座をプレゼント中🎁
         </div>
-        <button
-          onClick={onHotpepperClick}
-          className="w-full max-w-xs flex items-center justify-center gap-2 bg-[#bf1391] hover:bg-[#a01079] active:bg-[#880d67] text-white text-lg font-semibold py-3 px-6 rounded transition-colors"
+        <a
+          href={links.hotpepper}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full max-w-xs flex items-center justify-center gap-2 bg-[#bf1391] hover:bg-[#a01079] active:bg-[#880d67] text-white text-lg font-semibold py-3 px-6 rounded transition-colors no-underline"
         >
           <i className="fas fa-calendar-check text-xl"></i>
           ホットペッパーで予約する
-        </button>
+        </a>
         <div className="text-[#3a3a3a] text-xs">今すぐ予約したい方はこちらからどうぞ</div>
         <div className="text-[#3a3a3a] text-xs">ダイエットカウンセリングが初回限定980円🎉</div>
       </div>
@@ -137,28 +92,8 @@ function ShopMap({ query, title }: { query: string; title: string }) {
 }
 
 export default function Home() {
-  const [modal, setModal] = useState<{ url: string; title: string } | null>(null);
-
-  const openModal = (url: string, title: string) => {
-    setModal({ url, title });
-  };
-  const closeModal = () => setModal(null);
-  // HOT PEPPERはクーポン付き予約ページへ直接遷移させる
-  // （予約フローはiframe内では動作しないため新規タブで開く）
-  const openHigashiHotpepper = () => {
-    window.open(LINKS.higashiHiroshima.hotpepper, "_blank", "noopener,noreferrer");
-  };
-  const openFukuyamaHotpepper = () => {
-    window.open(LINKS.fukuyama.hotpepper, "_blank", "noopener,noreferrer");
-  };
-
   return (
     <div className="bg-white min-h-screen font-['Noto_Sans_JP',_'Inter',_sans-serif]">
-      {/* モーダル */}
-      {modal && (
-        <IframeModal url={modal.url} title={modal.title} onClose={closeModal} />
-      )}
-
       {/* メインコンテンツ：最大幅700px、中央揃え */}
       <div className="max-w-[700px] mx-auto">
 
@@ -175,13 +110,9 @@ export default function Home() {
         <section className="border-t border-neutral-200 py-4">
           <CTASection
             clinic="higashiHiroshima"
-            onLineClick={() => openModal(LINKS.higashiHiroshima.line, "東広島西条整骨院 LINE")}
-            onHotpepperClick={openHigashiHotpepper}
           />
           <CTASection
             clinic="fukuyama"
-            onLineClick={() => openModal(LINKS.fukuyama.line, "福山整骨院 LINE")}
-            onHotpepperClick={openFukuyamaHotpepper}
           />
         </section>
 
@@ -369,13 +300,9 @@ export default function Home() {
         <section className="border-t border-neutral-200 py-4">
           <CTASection
             clinic="higashiHiroshima"
-            onLineClick={() => openModal(LINKS.higashiHiroshima.line, "東広島西条整骨院 LINE")}
-            onHotpepperClick={openHigashiHotpepper}
           />
           <CTASection
             clinic="fukuyama"
-            onLineClick={() => openModal(LINKS.fukuyama.line, "福山整骨院 LINE")}
-            onHotpepperClick={openFukuyamaHotpepper}
           />
         </section>
 
@@ -443,13 +370,9 @@ export default function Home() {
         <section className="border-t border-neutral-200 py-4 mb-8">
           <CTASection
             clinic="higashiHiroshima"
-            onLineClick={() => openModal(LINKS.higashiHiroshima.line, "東広島西条整骨院 LINE")}
-            onHotpepperClick={openHigashiHotpepper}
           />
           <CTASection
             clinic="fukuyama"
-            onLineClick={() => openModal(LINKS.fukuyama.line, "福山整骨院 LINE")}
-            onHotpepperClick={openFukuyamaHotpepper}
           />
         </section>
 
