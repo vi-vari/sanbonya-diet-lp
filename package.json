@@ -10,6 +10,9 @@
     "start": "NODE_ENV=production node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
+    "check:images": "node scripts/check-images.mjs",
+    "test:smoke": "node scripts/smoke-test.mjs",
+    "verify": "pnpm check && pnpm check:images && pnpm build:pages && pnpm test:smoke",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -78,6 +81,7 @@
     "add": "^2.0.6",
     "autoprefixer": "^10.4.20",
     "esbuild": "^0.25.0",
+    "playwright": "1.49.1",
     "pnpm": "^10.15.1",
     "postcss": "^8.4.47",
     "prettier": "^3.6.2",
