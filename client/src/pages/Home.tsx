@@ -22,6 +22,26 @@ const LINKS = {
   },
 };
 
+// CTAボタン左の金色矢印。点滅アニメーションは index.css の .cta-arrow に定義。
+function CtaArrow() {
+  return (
+    <svg
+      className="cta-arrow shrink-0 w-[7.2%] min-w-[26px] h-auto aspect-[55/59] drop-shadow-[1px_2px_1px_rgba(0,0,0,0.15)]"
+      viewBox="0 0 55 59"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <defs>
+        <linearGradient id="cta-arrow-gold" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#FFDC1D" />
+          <stop offset="100%" stopColor="#FFBD1C" />
+        </linearGradient>
+      </defs>
+      <path d="M4 13 H32 V5 L53 29.5 L32 54 V46 H4 Z" fill="url(#cta-arrow-gold)" />
+    </svg>
+  );
+}
+
 // CTAセクションコンポーネント
 // LINE・HOT PEPPERともに通常のリンク（<a href>）で直接遷移させる。
 // iframeモーダルや window.open はスマホ・アプリ内ブラウザでブロックされるため使わない。
@@ -36,27 +56,43 @@ function CTASection({ clinic }: { clinic: "higashiHiroshima" | "fukuyama" }) {
         --- {clinicName} ---
       </div>
       <div className="flex flex-col items-center gap-2">
-        <a
-          href={links.line}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full max-w-xs flex items-center justify-center gap-2 bg-[#4dce6e] hover:bg-[#3ab85a] active:bg-[#2ea04c] text-white text-lg font-semibold py-3 px-6 rounded transition-colors no-underline"
-        >
-          <i className="fab fa-line text-xl"></i>
-          LINE講座をスタート
-        </a>
+        <div className="w-full flex items-center gap-[1.2%]">
+          <CtaArrow />
+          <a
+            href={links.line}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 min-w-0 block hover:brightness-[1.04] active:brightness-95 transition no-underline"
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}cta-line.webp`}
+              alt="LINE登録者限定 LINE講座をスタート"
+              width={850}
+              height={180}
+              className="block w-full h-auto"
+            />
+          </a>
+        </div>
         <div className="text-[#3a3a3a] text-xs">
           1週間で痩せ体質を作る無料講座をプレゼント中🎁
         </div>
-        <a
-          href={links.hotpepper}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full max-w-xs flex items-center justify-center gap-2 bg-[#bf1391] hover:bg-[#a01079] active:bg-[#880d67] text-white text-lg font-semibold py-3 px-6 rounded transition-colors no-underline"
-        >
-          <i className="fas fa-calendar-check text-xl"></i>
-          ホットペッパーで予約する
-        </a>
+        <div className="w-full flex items-center gap-[1.2%]">
+          <CtaArrow />
+          <a
+            href={links.hotpepper}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 min-w-0 block hover:brightness-[1.04] active:brightness-95 transition no-underline"
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}cta-hotpepper.webp`}
+              alt="ホットペッパーで予約する"
+              width={741}
+              height={152}
+              className="block w-full h-auto"
+            />
+          </a>
+        </div>
         <div className="text-[#3a3a3a] text-xs">今すぐ予約したい方はこちらからどうぞ</div>
         <div className="text-[#3a3a3a] text-xs">ダイエットカウンセリングが初回限定980円🎉</div>
       </div>
