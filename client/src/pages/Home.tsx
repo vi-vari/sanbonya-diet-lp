@@ -52,7 +52,7 @@ function CTASection({ clinic }: { clinic: "higashiHiroshima" | "fukuyama" }) {
 
   return (
     <div className="py-6 px-4">
-      <div className="text-center text-[#3a3a3a] text-sm mb-3">
+      <div className="text-center text-[#3a3a3a] text-[22px] min-[700px]:text-[24px] mb-3">
         --- {clinicName} ---
       </div>
       <div className="flex flex-col items-center gap-2">
@@ -73,8 +73,8 @@ function CTASection({ clinic }: { clinic: "higashiHiroshima" | "fukuyama" }) {
             />
           </a>
         </div>
-        <div className="text-[#3a3a3a] text-xs">
-          1週間で痩せ体質を作る無料講座をプレゼント中🎁
+        <div className="text-[#3a3a3a] text-[16px] min-[700px]:text-[22px] text-center leading-snug">
+          1週間で痩せ体質を作る<br className="min-[700px]:hidden" />無料講座をプレゼント中🎁
         </div>
         <div className="w-full flex items-center gap-[1.2%]">
           <CtaArrow />
@@ -93,8 +93,8 @@ function CTASection({ clinic }: { clinic: "higashiHiroshima" | "fukuyama" }) {
             />
           </a>
         </div>
-        <div className="text-[#3a3a3a] text-xs">今すぐ予約したい方はこちらからどうぞ</div>
-        <div className="text-[#3a3a3a] text-xs">ダイエットカウンセリングが初回限定980円🎉</div>
+        <div className="text-[#3a3a3a] text-[16px] min-[700px]:text-[22px] text-center leading-snug">今すぐ予約したい方は<br className="min-[700px]:hidden" />こちらからどうぞ</div>
+        <div className="text-[#3a3a3a] text-[16px] min-[700px]:text-[22px] text-center leading-snug">ダイエットカウンセリングが<br className="min-[700px]:hidden" />初回限定980円🎉</div>
       </div>
     </div>
   );
