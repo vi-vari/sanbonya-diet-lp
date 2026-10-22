@@ -175,3 +175,27 @@
     }
   }
 }
+
+/* ===== CTAボタン左の金色矢印アニメーション =====
+   1.5秒サイクルで、左から右へ動きながら点滅する。
+   速さを変えるときは下の animation の duration（1.5s）だけを調整する。 */
+@keyframes cta-arrow-nudge {
+  0%   { opacity: 0; transform: translateX(-3px); }
+  6%   { opacity: 1; transform: translateX(-3px); }
+  78%  { opacity: 1; transform: translateX(6px); }
+  86%  { opacity: 0; transform: translateX(7px); }
+  100% { opacity: 0; transform: translateX(-3px); }
+}
+
+.cta-arrow {
+  animation: cta-arrow-nudge 1.5s linear infinite;
+}
+
+/* 動きを抑える設定にしているユーザーには、静止した矢印を表示する */
+@media (prefers-reduced-motion: reduce) {
+  .cta-arrow {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
